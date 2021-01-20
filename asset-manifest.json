@@ -1,0 +1,40 @@
+{
+  "files": {
+    "static/js/0.ef0ba574.chunk.js": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/0.ef0ba574.chunk.js",
+    "static/js/0.ef0ba574.chunk.js.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/0.ef0ba574.chunk.js.map",
+    "static/js/1.a55c73ca.chunk.js": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/1.a55c73ca.chunk.js",
+    "static/js/1.a55c73ca.chunk.js.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/1.a55c73ca.chunk.js.map",
+    "static/js/2.d2b73a85.chunk.js": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/2.d2b73a85.chunk.js",
+    "static/js/2.d2b73a85.chunk.js.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/2.d2b73a85.chunk.js.map",
+    "static/js/3.9d92818f.chunk.js": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/3.9d92818f.chunk.js",
+    "static/js/3.9d92818f.chunk.js.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/3.9d92818f.chunk.js.map",
+    "static/js/4.ccffd8a7.chunk.js": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/4.ccffd8a7.chunk.js",
+    "static/js/4.ccffd8a7.chunk.js.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/4.ccffd8a7.chunk.js.map",
+    "static/js/5.18619451.chunk.js": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/5.18619451.chunk.js",
+    "static/js/5.18619451.chunk.js.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/5.18619451.chunk.js.map",
+    "static/js/6.8e4c6ef4.chunk.js": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/6.8e4c6ef4.chunk.js",
+    "static/js/6.8e4c6ef4.chunk.js.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/6.8e4c6ef4.chunk.js.map",
+    "static/js/7.2918fdef.chunk.js": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/7.2918fdef.chunk.js",
+    "static/js/7.2918fdef.chunk.js.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/7.2918fdef.chunk.js.map",
+    "static/js/8.aec79cb2.chunk.js": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/8.aec79cb2.chunk.js",
+    "static/js/8.aec79cb2.chunk.js.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/8.aec79cb2.chunk.js.map",
+    "main.css": "https://spinningideas.github.io/machinelearning-tensorflow/static/css/main.adab0e58.chunk.css",
+    "main.js": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/main.c5a414f8.chunk.js",
+    "main.js.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/main.c5a414f8.chunk.js.map",
+    "runtime-main.js": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/runtime-main.50ca601f.js",
+    "runtime-main.js.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/runtime-main.50ca601f.js.map",
+    "static/js/11.0085dbdb.chunk.js": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/11.0085dbdb.chunk.js",
+    "static/js/11.0085dbdb.chunk.js.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/11.0085dbdb.chunk.js.map",
+    "index.html": "https://spinningideas.github.io/machinelearning-tensorflow/index.html",
+    "static/css/main.adab0e58.chunk.css.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/css/main.adab0e58.chunk.css.map",
+    "static/js/0.ef0ba574.chunk.js.LICENSE.txt": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/0.ef0ba574.chunk.js.LICENSE.txt",
+    "static/js/11.0085dbdb.chunk.js.LICENSE.txt": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/11.0085dbdb.chunk.js.LICENSE.txt",
+    "static/js/2.d2b73a85.chunk.js.LICENSE.txt": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/2.d2b73a85.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.50ca601f.js",
+    "static/js/11.0085dbdb.chunk.js",
+    "static/css/main.adab0e58.chunk.css",
+    "static/js/main.c5a414f8.chunk.js"
+  ]
+}
