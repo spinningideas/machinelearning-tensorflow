@@ -1,6 +1,6 @@
 Machine Learning - TensorFlow was conceived to aid learning TensorFlow and utilizes React JS to host the reference implementations and examples.
 
-The project aims to include most of the basic things one needs and includes:
+The project aims to include basic examples of machine learning using TensorFlow and includes:
 
 -   Example of Sentiment Analysis.
 -   Example of Classification of a given image.
