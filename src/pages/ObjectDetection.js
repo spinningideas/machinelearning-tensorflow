@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 // Tensorflow
 import * as tf from '@tensorflow/tfjs';
 // material-ui
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -12,6 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import PublishSharpIcon from '@material-ui/icons/PublishSharp';
 // Components
 import LoadingIndicator from 'components/Shared/LoadingIndicator';
+import DownloadFileButton from 'components/Shared/DownloadFileButton';
 // Services
 import LocalizationService from 'services/LocalizationService';
 import MachineLearningService from 'services/MachineLearningService';
@@ -29,11 +31,7 @@ export default function ObjectDetection() {
 	const localizationService = LocalizationService();
 	const machineLearningService = MachineLearningService();
 
-	// Example: https://react-tensorflow-example.vercel.app/objects
-	// and page: https://github.com/joshuaellis/react-tensorflow/blob/master/example/src/containers/PageObjects/index.tsx
-	// https://github.com/joshuaellis/react-tensorflow/blob/master/src/hooks/useObjectDetect.ts
 	const modelUrl = 'https://tfhub.dev/tensorflow/tfjs-model/ssd_mobilenet_v2/1/default/1';
-	//const model_net = await tf.loadGraphModel("https://tfhub.dev/tensorflow/tfjs-model/ssd_mobilenet_v2/1/default/1", { fromTFHub: true })
 
 	useEffect(() => {
 		async function loadLocalization() {
@@ -115,7 +113,7 @@ export default function ObjectDetection() {
 			returns,
 			minConfidence
 		);
-		
+
 		setDetectedObjects(detectedObjects);
 
 		setObjectDetectionIsOccuring(false);
@@ -181,6 +179,21 @@ export default function ObjectDetection() {
 									</label>
 								</Tooltip>
 								<label>{selectedFile ? selectedFile.name : 'Select Image'}</label>. . .
+								<DownloadFileButton
+									display={true}
+									text="Download Bee Image"
+									filePath="images/bee.jpg"
+								/>
+								<DownloadFileButton
+									display={true}
+									text="Download Hot Dog Image"
+									filePath="images/hotdog.jpg"
+								/>
+								<DownloadFileButton
+									display={true}
+									text="Download strawberry Image"
+									filePath="images/strawberry.jpg"
+								/>
 							</CardContent>
 							<CardActions>
 								{selectedFile ? (
@@ -193,20 +206,22 @@ export default function ObjectDetection() {
 								<LoadingIndicator display={objectDetectionIsOccuring} size={40} />
 							</CardActions>
 						</Card>
+						<ObjectDetectionResult />
 					</Grid>
 
 					<Grid item xs={12} md={6} lg={6} xl={6}>
-						<ObjectDetectionResult />
-						<img
-							className="mt-2"
-							ref={selectedImageRef}
-							src={selectedFile}
-							style={{
-								width: '50%',
-								visibility: selectedFile != null ? 'visible' : 'hidden',
-							}}
-							alt="Selected file to analyze"
-						/>
+						<Box display="flex" justifyContent="center">
+							<img
+								className="mt-2"
+								ref={selectedImageRef}
+								src={selectedFile}
+								style={{
+									width: '50%',
+									visibility: selectedFile != null ? 'visible' : 'hidden',
+								}}
+								alt="Selected file to analyze"
+							/>
+						</Box>
 					</Grid>
 				</Grid>
 			</Grid>

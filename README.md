@@ -28,6 +28,8 @@ The page will reload if you make edits.
 
 ## More Info
 
+-   [Great Intro to TensorFlow and ML](https://medium.com/@BhashkarKunal/image-classification-api-creation-using-tensorflow-flask-mongodb-61a53835e62d)
+
 ### Sentiment
 
 -   https://github.com/manfye/tfjs-react + https://towardsdatascience.com/how-to-use-tensorflow-js-in-react-js-sentimental-analysis-59c538c07256
@@ -35,10 +37,16 @@ The page will reload if you make edits.
 ### Object Detection
 
 -   https://react-tensorflow-example.vercel.app/objects
+-   https://www.tensorflow.org/lite/models/object_detection/overview#get_started
+-   http://blog.zenof.ai/object-detection-in-react-native-app-using-tensorflow-js/
+-   https://heartbeat.fritz.ai/real-time-object-detection-using-ssd-mobilenet-v2-on-video-streams-3bfc1577399c
+-   https://heartbeat.fritz.ai/getting-started-with-object-detection-using-tensorflow-js-757d21658e2d
+-   https://www.analyticsvidhya.com/blog/2020/04/build-your-own-object-detection-model-using-tensorflow-api/
+-   https://medium.com/swlh/object-detection-with-android-phone-using-tensor-flow-lite-9463a1522ffd
 
 ### Prediction
 
-https://react-tensorflow-example.vercel.app/hoc
+-   https://react-tensorflow-example.vercel.app/hoc
 
 ### Speech Recongition
 
@@ -47,7 +55,7 @@ https://react-tensorflow-example.vercel.app/hoc
 
 ### React Tensorflow
 
-https://github.com/joshuaellis/react-tensorflow
+-   https://github.com/joshuaellis/react-tensorflow
 
 ### React Material UI
 
@@ -60,22 +68,6 @@ https://github.com/joshuaellis/react-tensorflow
 
 ## Notes/Additional Tutorials
 
--   https://heartbeat.fritz.ai/real-time-object-detection-using-ssd-mobilenet-v2-on-video-streams-3bfc1577399c
+-   https://www.youtube.com/watch?v=uTdUUpfA83s
 
--   https://heartbeat.fritz.ai/getting-started-with-object-detection-using-tensorflow-js-757d21658e2d
-
--   https://www.analyticsvidhya.com/blog/2020/04/build-your-own-object-detection-model-using-tensorflow-api/
-
--   https://medium.com/swlh/object-detection-with-android-phone-using-tensor-flow-lite-9463a1522ffd
-
--   https://codelabs.developers.google.com/codelabs/tensorflowjs-object-detection#7
-
-https://www.tensorflow.org/lite/models/object_detection/overview#get_started
-
-http://blog.zenof.ai/object-detection-in-react-native-app-using-tensorflow-js/
-
----
-
-https://www.youtube.com/watch?v=uTdUUpfA83s
-
-https://github.com/nicknochnack/RealTimeObjectDetectionTFJSReact
+-   https://github.com/nicknochnack/RealTimeObjectDetectionTFJSReact

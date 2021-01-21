@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 // Tensorflow
 import * as tf from '@tensorflow/tfjs';
 // material-ui
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -12,6 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import PublishSharpIcon from '@material-ui/icons/PublishSharp';
 // Components
 import LoadingIndicator from 'components/Shared/LoadingIndicator';
+import DownloadFileButton from 'components/Shared/DownloadFileButton';
 // Services
 import LocalizationService from 'services/LocalizationService';
 import MachineLearningService from 'services/MachineLearningService';
@@ -141,27 +143,6 @@ export default function Classifier() {
 		}
 	};
 
-	const downloadFile = (filePath) => {
-		window.location.href = window.location.origin + '/' + filePath;
-	};
-
-	const DownloadButton = ({ text, filePath, display }) => {
-		return (
-			<Button
-				className="ml-2"
-				color="primary"
-				variant="outlined"
-				target="_blank"
-				style={{
-					visibility: display ? 'visible' : 'hidden',
-				}}
-				onClick={() => downloadFile(filePath)}
-			>
-				{text}
-			</Button>
-		);
-	};
-
 	return (
 		<Grid container spacing={0}>
 			<Grid item xs={12} className="contentpanel-site">
@@ -199,7 +180,21 @@ export default function Classifier() {
 									</label>
 								</Tooltip>
 								<label>{selectedFile ? selectedFile.name : 'Select Image'}</label>. . .
-								<DownloadButton display={false} text="Bee" filePath="images/bee.jpg" />
+								<DownloadFileButton
+									display={true}
+									text="Download Bee Image"
+									filePath="images/bee.jpg"
+								/>
+								<DownloadFileButton
+									display={true}
+									text="Download Hot Dog Image"
+									filePath="images/hotdog.jpg"
+								/>
+								<DownloadFileButton
+									display={true}
+									text="Download strawberry Image"
+									filePath="images/strawberry.jpg"
+								/>
 							</CardContent>
 							<CardActions>
 								{selectedFile ? (
@@ -212,20 +207,21 @@ export default function Classifier() {
 								<LoadingIndicator display={isClassificationOccuring} size={40} />
 							</CardActions>
 						</Card>
-					</Grid>
-
-					<Grid item xs={12} md={6} lg={6} xl={6}>
 						<ClassificationResult />
-						<img
-							className="mt-2"
-							ref={selectedImageRef}
-							src={selectedFile}
-							style={{
-								width: '50%',
-								visibility: selectedFile != null ? 'visible' : 'hidden',
-							}}
-							alt="Selected file to analyze"
-						/>
+					</Grid>
+					<Grid item xs={12} md={6} lg={6} xl={6}>
+						<Box display="flex" justifyContent="center">
+							<img
+								className="mt-2"
+								ref={selectedImageRef}
+								src={selectedFile}
+								style={{
+									width: '50%',
+									visibility: selectedFile != null ? 'visible' : 'hidden',
+								}}
+								alt="Selected file to analyze"
+							/>
+						</Box>
 					</Grid>
 				</Grid>
 			</Grid>

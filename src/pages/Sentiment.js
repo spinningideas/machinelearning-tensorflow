@@ -140,7 +140,7 @@ export default function Sentiment() {
 									onChange={(e) => setSentimentInputText(e.target.value)}
 									value={sentimentInputText}
 									multiline
-									rows={4}
+									rows={3}
 									variant="outlined"
 									style={{ width: '100%' }}
 								/>
@@ -161,14 +161,16 @@ export default function Sentiment() {
 						{sentimentScore !== '' ? (
 							<Card className="card white-bg-color bl-1 bb-1">
 								<CardContent>
-									<p className="text-bold">Score</p>
+									<p>
+										<span className="text-bold">Score</span> (1 = Positive, 0 = Negative)
+									</p>
 									<p>{sentimentScore}</p>
 									{sentimentScore > 0.6 ? (
 										<MoodIcon className="success-color" style={{ fontSize: 40 }} />
 									) : (
 										<MoodBadIcon className="fail-color" style={{ fontSize: 40 }} />
 									)}
-									<p>1 = Positive, 0 = Negative</p>
+
 									{1 == 1 ? (
 										<></>
 									) : (
