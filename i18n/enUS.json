@@ -22,7 +22,7 @@
 	"materialui": "Material-UI",
 	"materialuidescription": "Visually appealing React components that implement Google's Material Design along with layout and theming support.",
 	"tensorflow": "TensorFlow ",
-	"tensorflowdescription": "TensorFlow is a free and open-source software library for machine learning. It can be used across a range of tasks but has a particular focus on training and inference of deep neural networks.",
+	"tensorflowdescription": "TensorFlow is a open-source software library for machine learning that can be used across a range of tasks.",
 	"sentiment": "Sentiment",
 	"sentimentdescription": "Example of Sentiment analysis using text that you enter",
 	"sentimentinstructions": "Type some text and see if it contains \"positive\" or \"negative\" sentiment",
