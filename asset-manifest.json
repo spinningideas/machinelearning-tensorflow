@@ -8,8 +8,8 @@
     "static/js/2.9cec1edb.chunk.js.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/2.9cec1edb.chunk.js.map",
     "static/js/3.930d6bbd.chunk.js": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/3.930d6bbd.chunk.js",
     "static/js/3.930d6bbd.chunk.js.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/3.930d6bbd.chunk.js.map",
-    "static/js/4.9666c786.chunk.js": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/4.9666c786.chunk.js",
-    "static/js/4.9666c786.chunk.js.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/4.9666c786.chunk.js.map",
+    "static/js/4.2e330623.chunk.js": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/4.2e330623.chunk.js",
+    "static/js/4.2e330623.chunk.js.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/4.2e330623.chunk.js.map",
     "static/js/5.e53474f5.chunk.js": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/5.e53474f5.chunk.js",
     "static/js/5.e53474f5.chunk.js.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/5.e53474f5.chunk.js.map",
     "static/js/6.11b42e55.chunk.js": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/6.11b42e55.chunk.js",
@@ -21,8 +21,8 @@
     "main.css": "https://spinningideas.github.io/machinelearning-tensorflow/static/css/main.f7141749.chunk.css",
     "main.js": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/main.a9560a68.chunk.js",
     "main.js.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/main.a9560a68.chunk.js.map",
-    "runtime-main.js": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/runtime-main.e9c6e8a9.js",
-    "runtime-main.js.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/runtime-main.e9c6e8a9.js.map",
+    "runtime-main.js": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/runtime-main.7b58bdb1.js",
+    "runtime-main.js.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/runtime-main.7b58bdb1.js.map",
     "static/js/11.3d53eccb.chunk.js": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/11.3d53eccb.chunk.js",
     "static/js/11.3d53eccb.chunk.js.map": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/11.3d53eccb.chunk.js.map",
     "index.html": "https://spinningideas.github.io/machinelearning-tensorflow/index.html",
@@ -32,7 +32,7 @@
     "static/js/2.9cec1edb.chunk.js.LICENSE.txt": "https://spinningideas.github.io/machinelearning-tensorflow/static/js/2.9cec1edb.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.e9c6e8a9.js",
+    "static/js/runtime-main.7b58bdb1.js",
     "static/js/11.3d53eccb.chunk.js",
     "static/css/main.f7141749.chunk.css",
     "static/js/main.a9560a68.chunk.js"
