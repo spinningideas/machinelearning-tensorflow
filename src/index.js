@@ -12,13 +12,13 @@ import ErrorHandler from 'components/ErrorHandler';
 import { APPBASEPATH } from 'utils';
 
 const AppShell = () => (
-	<ErrorHandler>
-		<MuiThemeProvider theme={theme}>
-			<Router basename={APPBASEPATH}>
-				<Application />
-			</Router>
-		</MuiThemeProvider>
-	</ErrorHandler>
+  <ErrorHandler>
+    <MuiThemeProvider theme={theme}>
+      <Router basename={APPBASEPATH}>
+        <Application />
+      </Router>
+    </MuiThemeProvider>
+  </ErrorHandler>
 );
 
 ReactDOM.render(<AppShell />, document.getElementById('appshell'));
