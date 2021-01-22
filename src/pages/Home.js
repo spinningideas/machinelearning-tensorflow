@@ -43,65 +43,50 @@ function Home() {
     <Grid container spacing={0}>
       <Grid item xs={12} className="contentpanel-site">
         <h2>{locData.homepagewelcome}</h2>
-
+        <GetStartedMessage locData={locData} displayGetStarted={true} />
         <Grid container spacing={0}>
-          <Grid item xs={12}>
-            <GetStartedMessage locData={locData} displayGetStarted={true} />
+          <Grid item xs={12} md={4} lg={4} xl={4} className="pt-1 pb-1">
+            <Card>
+              <CardContent>
+                <h4 className="card-title">{locData.sentiment}</h4>
+                <p>{locData.sentimentdescription}</p>
+              </CardContent>
+              <CardActions>
+                <Button className="mt-3" color="secondary" component={Link} to="/sentiment">
+                  {locData.seeexample}
+                </Button>
+              </CardActions>
+            </Card>
           </Grid>
-          <Grid item xs={12} className="pt-1">
-            <Grid container>
-              <Grid item xs={12} className="pt-1 pb-1">
-                <Card>
-                  <CardContent>
-                    <h4 className="card-title">{locData.sentiment}</h4>
-                    <p>{locData.sentimentdescription}</p>
-                  </CardContent>
-                  <CardActions>
-                    <Button className="mt-3" color="secondary" component={Link} to="/sentiment">
-                      {locData.seeexample}
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            </Grid>
 
-            <Grid container>
-              <Grid item xs={12} className="pt-1">
-                <Card className="card white-bg-color bl-1 bb-1">
-                  <CardContent>
-                    <h4 className="card-title">{locData.classifier}</h4>
-                    <p>{locData.classifierdescription}</p>
-                  </CardContent>
-                  <CardActions>
-                    <Button className="mt-3" color="secondary" component={Link} to="/classifier">
-                      {locData.seeexample}
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            </Grid>
-
-            <Grid container>
-              <Grid item xs={12} className="pt-1">
-                <Card className="card white-bg-color bl-1 bb-1">
-                  <CardContent>
-                    <h4 className="card-title">{locData.objectdetection}</h4>
-                    <p>{locData.objectdetectiondescription}</p>
-                  </CardContent>
-                  <CardActions>
-                    <Button
-                      className="mt-3"
-                      color="secondary"
-                      component={Link}
-                      to="/objectdetection"
-                    >
-                      {locData.seeexample}
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            </Grid>
+          <Grid item xs={12} md={4} lg={4} xl={4} className="pt-1">
+            <Card className="card white-bg-color bl-1 bb-1">
+              <CardContent>
+                <h4 className="card-title">{locData.classifier}</h4>
+                <p>{locData.classifierdescription}</p>
+              </CardContent>
+              <CardActions>
+                <Button className="mt-3" color="secondary" component={Link} to="/classifier">
+                  {locData.seeexample}
+                </Button>
+              </CardActions>
+            </Card>
           </Grid>
+
+          <Grid item xs={12} md={4} lg={4} xl={4} className="pt-1">
+            <Card className="card white-bg-color bl-1 bb-1">
+              <CardContent>
+                <h4 className="card-title">{locData.objectdetection}</h4>
+                <p>{locData.objectdetectiondescription}</p>
+              </CardContent>
+              <CardActions>
+                <Button className="mt-3" color="secondary" component={Link} to="/objectdetection">
+                  {locData.seeexample}
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
+        
         </Grid>
       </Grid>
     </Grid>

@@ -24,7 +24,7 @@
 	"tensorflow": "TensorFlow ",
 	"tensorflowdescription": "TensorFlow is a open-source software library for machine learning that can be used across a range of tasks.",
 	"sentiment": "Sentiment",
-	"sentimentdescription": "Example of Sentiment analysis using text that you enter",
+	"sentimentdescription": "Example of Sentiment analysis using any snippet of text that you enter",
 	"sentimentinstructions": "Type some text and see if it contains \"positive\" or \"negative\" sentiment",
 	"seeexample": "See Example",
 	"error": "Error",
