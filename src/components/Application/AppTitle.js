@@ -1,20 +1,29 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 
 const useStyles = makeStyles(() => ({
   appTitle: {
-    flexGrow: 1
+    flexGrow: 1,
   },
 }));
 
 const AppTitle = (props) => {
-  const classes = useStyles();	
+  const classes = useStyles();
+
+  if (isWidthUp('sm', props.width)) {
+    return (
+      <Typography variant="h6" className={classes.appTitle}>
+        {props.locData.apptitle}
+      </Typography>
+    );
+  }
   return (
     <Typography variant="h6" className={classes.appTitle}>
-      {props.locData.apptitle}
+      ML - Tensoflow
     </Typography>
   );
 };
 
-export default AppTitle;
+export default withWidth()(AppTitle);

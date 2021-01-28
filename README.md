@@ -36,17 +36,13 @@ The page will reload if you make edits.
 
 ### Object Detection
 
--   https://react-tensorflow-example.vercel.app/objects
+-   https://nanonets.com/blog/object-detection-tensorflow-js/
 -   https://www.tensorflow.org/lite/models/object_detection/overview#get_started
 -   http://blog.zenof.ai/object-detection-in-react-native-app-using-tensorflow-js/
 -   https://heartbeat.fritz.ai/real-time-object-detection-using-ssd-mobilenet-v2-on-video-streams-3bfc1577399c
 -   https://heartbeat.fritz.ai/getting-started-with-object-detection-using-tensorflow-js-757d21658e2d
 -   https://www.analyticsvidhya.com/blog/2020/04/build-your-own-object-detection-model-using-tensorflow-api/
 -   https://medium.com/swlh/object-detection-with-android-phone-using-tensor-flow-lite-9463a1522ffd
-
-### Prediction
-
--   https://react-tensorflow-example.vercel.app/hoc
 
 ### Speech Recongition
 

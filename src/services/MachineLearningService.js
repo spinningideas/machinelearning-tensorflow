@@ -5,15 +5,6 @@ const PAD_INDEX = 0;
 const MachineLearningService = () => {
   // Object Detection
 
-  const setBackend = (desired) => {
-    const currBackend = tf.getBackend();
-    const resetBackend = () => {
-      void tf.setBackend(currBackend);
-    };
-    tf.setBackend(desired);
-    return resetBackend;
-  };
-
   const buildObjects = (indexes, scores, { width, height, boxes }, { classIndexes, classes }) => {
     const objects = [];
     indexes.forEach((index, i) => {
@@ -70,7 +61,7 @@ const MachineLearningService = () => {
     return [maxes, classes];
   };
 
-  const getPrediction = async (model, data) => {
+  const getPredictions = async (model, data) => {
     if (model instanceof tf.GraphModel && model?.executeAsync) {
       return await model.executeAsync(data);
     } else {
@@ -78,48 +69,34 @@ const MachineLearningService = () => {
     }
   };
 
-  const createObjectPredictions = (width, height, classes, returns, minConfidence, res) => {
-    let resetBackend = null;
-    const [scores, boxes] = res.map((data) => {
+  const createObjectPredictions = (width, height, classes, maxOutputSize, minConfidence, predictions) => {
+    const [scores, boxes] = predictions.map((data) => {
       const datum = data.dataSync();
       data.dispose();
       return datum;
     });
 
-    const [maxScores, classIndexes] = calcMaxScores(scores, res[0].shape[1], res[0].shape[2]);
-
-    if (tf.getBackend() === 'webgl') {
-      resetBackend = setBackend('cpu');
-    }
+    const [maxScores, classIndexes] = calcMaxScores(scores, predictions[0].shape[1], predictions[0].shape[2]);
 
     const indexTensor = tf.tidy(() => {
-      const boxes2 = tf.tensor2d(boxes, [res[1].shape[1], res[1].shape[3]]);
-      return tf.image.nonMaxSuppression(boxes2, maxScores, returns, minConfidence, minConfidence);
+      const boxes2 = tf.tensor2d(boxes, [predictions[1].shape[1], predictions[1].shape[3]]);
+      return tf.image.nonMaxSuppression(boxes2, maxScores, maxOutputSize, minConfidence, minConfidence);
     });
 
     const indexes = indexTensor.dataSync();
     indexTensor.dispose();
 
-    if (resetBackend) {
-      resetBackend();
-    }
-
     return buildObjects(indexes, maxScores, { width, height, boxes }, { classIndexes, classes });
   };
 
-  const createPrediction = async (model, data) => {
-    return await getPrediction(model, data);
-  };
-
-  const detectObjects = async (model, data, width, height, classes, returns, minConfidence) => {
-    const prediction = await createPrediction(model, data);
+  const detectObjects = async (model, data, width, height, classes, maxOutputSize, minConfidence) => {
     if (typeof width !== 'number' || typeof height !== 'number') {
       // ERROR CONDITION...
     }
-
-    if (prediction) {
+    const predictions = await getPredictions(model, data);
+    if (predictions) {
       // prediction is tf.Tensor4D[]
-      const objects = createObjectPredictions(width, height, classes, returns, minConfidence, prediction);
+      const objects = createObjectPredictions(width, height, classes, maxOutputSize, minConfidence, predictions);
       return objects;
     } else {
       // ERROR CONDITION...

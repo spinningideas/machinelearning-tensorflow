@@ -17,8 +17,8 @@ import Home from '@material-ui/icons/Home';
 import Info from '@material-ui/icons/Info';
 import MenuIcon from '@material-ui/icons/Menu';
 import MoodIcon from '@material-ui/icons/Mood';
-import ArtTrackIcon from '@material-ui/icons/ArtTrack';
 import ImageSearchIcon from '@material-ui/icons/ImageSearch';
+import CameraEnhanceIcon from '@material-ui/icons/CameraEnhance';
 // Services
 import LocalizationService from 'services/LocalizationService';
 // Components
@@ -66,7 +66,16 @@ function Navigation() {
     async function loadLocalization() {
       const locCode = localizationService.getUserLocale();
       const locDataLoaded = await localizationService.getLocalizedTextSet(
-        ['apptitle', 'sentiment', 'classifier', 'objectdetection', 'home', 'contact', 'about', 'cancel'],
+        [
+          'apptitle',
+          'sentiment',
+          'objectdetectionimage',
+          'objectdetectioncamera',
+          'home',
+          'contact',
+          'about',
+          'cancel',
+        ],
         locCode
       );
 
@@ -125,13 +134,7 @@ function Navigation() {
             </ListItemIcon>
             <ListItemText primary={locData.home} />
           </ListItem>
-          <ListItem
-            button
-            className={classes.sideMenuListItem}
-            onClick={closeDrawer}
-            component={Link}
-            to="/sentiment"
-          >
+          <ListItem button className={classes.sideMenuListItem} onClick={closeDrawer} component={Link} to="/sentiment">
             <ListItemIcon>
               <MoodIcon />
             </ListItemIcon>
@@ -142,32 +145,26 @@ function Navigation() {
             className={classes.sideMenuListItem}
             onClick={closeDrawer}
             component={Link}
-            to="/classifier"
-          >
-            <ListItemIcon>
-              <ArtTrackIcon />
-            </ListItemIcon>
-            <ListItemText primary={locData.classifier} />
-          </ListItem>
-          <ListItem
-            button
-            className={classes.sideMenuListItem}
-            onClick={closeDrawer}
-            component={Link}
-            to="/objectdetection"
+            to="/objectdetectionimage"
           >
             <ListItemIcon>
               <ImageSearchIcon />
             </ListItemIcon>
-            <ListItemText primary={locData.objectdetection} />
+            <ListItemText primary={locData.objectdetectionimage} />
           </ListItem>
           <ListItem
             button
             className={classes.sideMenuListItem}
             onClick={closeDrawer}
             component={Link}
-            to="/about"
+            to="/objectdetectioncamera"
           >
+            <ListItemIcon>
+              <CameraEnhanceIcon />
+            </ListItemIcon>
+            <ListItemText primary={locData.objectdetectioncamera} />
+          </ListItem>
+          <ListItem button className={classes.sideMenuListItem} onClick={closeDrawer} component={Link} to="/about">
             <ListItemIcon>
               <Info />
             </ListItemIcon>

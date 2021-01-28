@@ -11,8 +11,8 @@ const routes = (
     <Switch>
       <Route path="/" exact component={LazyLoadedPage('Home')} />
       <Route path="/sentiment" component={LazyLoadedPage('Sentiment')} />
-      <Route path="/classifier" component={LazyLoadedPage('Classifier')} />
-      <Route path="/objectdetection" component={LazyLoadedPage('ObjectDetection')} />
+      <Route path="/objectdetectionimage" component={LazyLoadedPage('ObjectDetectionImage')} />
+      <Route path="/objectdetectioncamera" component={LazyLoadedPage('ObjectDetectionCamera')} />
       <Route path="/about" component={LazyLoadedPage('About')} />
       <Route path="/contact/:name" component={LazyLoadedPage('Contact')} />
       <Route path="/contact" component={LazyLoadedPage('Contact')} />

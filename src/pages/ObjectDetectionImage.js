@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 // Tensorflow
 import * as tf from '@tensorflow/tfjs';
 // material-ui
@@ -14,31 +14,31 @@ import PublishSharpIcon from '@material-ui/icons/PublishSharp';
 // Components
 import LoadingIndicator from 'components/Shared/LoadingIndicator';
 import DownloadFileButton from 'components/Shared/DownloadFileButton';
+import BoundingBox from 'components/Shared/BoundingBox';
 // Services
 import LocalizationService from 'services/LocalizationService';
 import MachineLearningService from 'services/MachineLearningService';
 
-export default function Classifier() {
+export default function ObjectDetectionImage() {
   const [locData, setLocData] = useState({});
   const [selectedFile, setSelectedFile] = useState(null);
   const [model, setModel] = useState();
-  const [classificationText, setClassificationText] = useState('');
-  const [classificationProbabilityText, setClassificationProbabilityText] = useState('');
-  const [isClassificationOccuring, setIsClassificationOccuring] = useState(false);
+  const [detectedObjects, setDetectedObjects] = useState(null);
+  const [objectDetectionIsOccuring, setObjectDetectionIsOccuring] = useState(false);
 
-  const selectedImageRef = React.useRef(null);
+  const selectedImageRef = useRef(null);
 
-  const machineLearningService = MachineLearningService();
   const localizationService = LocalizationService();
+  const machineLearningService = MachineLearningService();
 
-  const modelUrl = 'https://tfhub.dev/google/tfjs-model/imagenet/mobilenet_v2_140_224/classification/3/default/1';
+  const modelUrl = 'https://tfhub.dev/tensorflow/tfjs-model/ssd_mobilenet_v2/1/default/1';
 
   useEffect(() => {
     async function loadLocalization() {
       const locCode = localizationService.getUserLocale();
 
       const locDataLoaded = await localizationService.getLocalizedTextSet(
-        ['classifier', 'classifierdescription', 'classifierinstructions', 'moreinfo'],
+        ['objectdetectionimage', 'objectdetectiondescriptionimage', 'objectdetectioninstructionsimage', 'moreinfo'],
         locCode
       );
       setLocData(locDataLoaded);
@@ -52,14 +52,21 @@ export default function Classifier() {
     });
   }, [modelUrl]);
 
-  async function loadModel(modelUrlToLoad) {
+  const loadModel = async (modelUrlToLoad) => {
     try {
       const model = await tf.loadGraphModel(modelUrlToLoad, { fromTFHub: true });
+      // warm up model with empty image
+      const zeroTensor = tf.zeros([1, 300, 300, 3], 'int32');
+      const result = await model.executeAsync(zeroTensor);
+      await Promise.all(result.map((t) => t.data()));
+      result.map((t) => t.dispose());
+      zeroTensor.dispose();
+
       setModel(model);
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   const handleSelectImage = (e) => {
     const [file] = e.target.files;
@@ -75,89 +82,66 @@ export default function Classifier() {
     }
   };
 
-  const handleClassifyImage = async () => {
-    setIsClassificationOccuring(true);
-    await performImageClassification();
+  const handleImageObjectDetection = async () => {
+    setObjectDetectionIsOccuring(true);
+    await performImageObjectDetection();
   };
 
-  const getTensorFromRawImage = (rawImage) => {
-    const image = tf.browser.fromPixels(rawImage);
-    const normalized = image
-      .toFloat()
-      .mul(2 / 255)
-      .add(-1);
-    let resized = tf.image.resizeBilinear(normalized, [224, 224], true);
-    return resized.reshape([-1, 224, 224, 3]);
-  };
-
-  const classify = (tensor, returnAmount, classes) => {
-    const values = tf.tidy(() => {
-      const softmax = tensor.slice([0, 1], [-1, 1000]).softmax();
-      return softmax.dataSync();
+  const getTensorFromRawImage = (img) => {
+    const tensor = tf.tidy(() => {
+      const tens = tf.browser.fromPixels(img);
+      return tens.expandDims(0).cast('int32');
     });
-
-    const valuesWithIndices = [];
-    values.forEach((val, i) => {
-      valuesWithIndices.push({ value: val, index: i });
-    });
-
-    return valuesWithIndices
-      .sort((a, b) => b.value - a.value)
-      .filter((_, i) => i < returnAmount)
-      .map(({ value, index }) => ({
-        className: classes[index],
-        probability: value,
-      }));
+    return tensor;
   };
 
-  const performImageClassification = async () => {
-    const tensor = getTensorFromRawImage(selectedImageRef.current);
-    const result = await model.predict(tensor);
-    const imageNetClasses = machineLearningService.getImageNetClasses();
-    const prediction = classify(result, 1, imageNetClasses);
+  const performImageObjectDetection = async () => {
+    const tensorData = getTensorFromRawImage(selectedImageRef.current);
+    const width = selectedImageRef.current?.width ?? 0;
+    const height = selectedImageRef.current?.height ?? 0;
+    const classes = machineLearningService.getCocoSSDClasses();
+    const maxOutputSize = 5;
+    const minConfidence = 0;
 
-    tensor.dispose();
-    result.dispose();
+    const detectedObjects = await machineLearningService.detectObjects(
+      model,
+      tensorData,
+      width,
+      height,
+      classes,
+      maxOutputSize,
+      minConfidence
+    );
 
-    setClassificationText(prediction[0].className);
-    setClassificationProbabilityText(prediction[0].probability);
-    setIsClassificationOccuring(false);
+    setDetectedObjects(detectedObjects);
+
+    setObjectDetectionIsOccuring(false);
   };
 
-  const ClassificationResult = () => {
-    if (!isClassificationOccuring && classificationText.length > 0) {
-      return (
-        <Card className="card white-bg-color bl-1 bb-1">
-          <CardContent>
-            <p>
-              <span className="text-bold">Classification:</span> {classificationText}
-            </p>
-            <p>
-              <span className="text-bold">Probability:</span> {classificationProbabilityText}
-            </p>
-          </CardContent>
-        </Card>
-      );
-    } else {
-      return <></>;
+  const DetectedObjects = () => {
+    if (detectedObjects) {
+      return detectedObjects.map((object) => (
+        <BoundingBox
+          key={object.class + object.probability}
+          parentImgRef={selectedImageRef}
+          box={object.boundingBox}
+          label={object.class}
+          probability={object.probability}
+        />
+      ));
     }
+    return <></>;
   };
 
   return (
     <Grid container spacing={0}>
       <Grid item xs={12} className="contentpanel-site">
-        <h3>{locData.classifier}</h3>
+        <h3>{locData.objectdetectionimage}</h3>
+        <h5>{locData.objectdetectiondescriptionimage}</h5>
         <p>
-          {locData.classifierinstructions}{' '}
-          <Button
-            className="ml-2"
-            href={modelUrl}
-            color="primary"
-            variant="outlined"
-            target="_blank"
-            rel="noopener"
-          >
-						View Model
+          {locData.objectdetectioninstructionsimage}{' '}
+          <Button className="ml-2" href={modelUrl} color="primary" variant="outlined" target="_blank" rel="noopener">
+            View Model
           </Button>
         </p>
         <Grid container spacing={0}>
@@ -182,45 +166,38 @@ export default function Classifier() {
                 <label>{selectedFile ? selectedFile.name : 'Select Image'}</label>. . .
                 <DownloadFileButton
                   display={true}
-                  text="Download Bee Image"
-                  filePath="images/bee.jpg"
+                  text="Download Apple/Carrot Image"
+                  filePath="images/apple-carrot.jpg"
                 />
-                <DownloadFileButton
-                  display={true}
-                  text="Download Hot Dog Image"
-                  filePath="images/hotdog.jpg"
-                />
-                <DownloadFileButton
-                  display={true}
-                  text="Download strawberry Image"
-                  filePath="images/strawberry.jpg"
-                />
+                <DownloadFileButton display={true} text="Download Hot Dog Image" filePath="images/hotdog.jpg" />
+                <DownloadFileButton display={true} text="Download strawberry Image" filePath="images/strawberry.jpg" />
               </CardContent>
               <CardActions>
                 {selectedFile ? (
-                  <Button color="primary" onClick={() => handleClassifyImage()}>
-										Perform Classification
+                  <Button color="primary" onClick={() => handleImageObjectDetection()}>
+                    Perform Object Detection
                   </Button>
                 ) : (
                   <></>
                 )}
-                <LoadingIndicator display={isClassificationOccuring} size={40} />
+                <LoadingIndicator display={objectDetectionIsOccuring} size={40} />
               </CardActions>
             </Card>
-            <ClassificationResult />
           </Grid>
+
           <Grid item xs={12} md={6} lg={6} xl={6}>
             <Box display="flex" justifyContent="center">
               <img
+                id="img-selectedfile"
                 className="mt-2"
                 ref={selectedImageRef}
                 src={selectedFile}
                 style={{
-                  width: '50%',
                   visibility: selectedFile != null ? 'visible' : 'hidden',
                 }}
                 alt="Selected file to analyze"
               />
+              <DetectedObjects />
             </Box>
           </Grid>
         </Grid>
