@@ -11,6 +11,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import PublishSharpIcon from '@material-ui/icons/PublishSharp';
+import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 // Components
 import LoadingIndicator from 'components/Shared/LoadingIndicator';
 import DownloadFileButton from 'components/Shared/DownloadFileButton';
@@ -19,12 +20,13 @@ import BoundingBox from 'components/Shared/BoundingBox';
 import LocalizationService from 'services/LocalizationService';
 import MachineLearningService from 'services/MachineLearningService';
 
-export default function ObjectDetectionImage() {
+function ObjectDetectionImage(props) {
   const [locData, setLocData] = useState({});
   const [selectedFile, setSelectedFile] = useState(null);
   const [model, setModel] = useState();
   const [detectedObjects, setDetectedObjects] = useState(null);
   const [objectDetectionIsOccuring, setObjectDetectionIsOccuring] = useState(false);
+  const [imageWidth, setImageWidth] = useState(0);
 
   const selectedImageRef = useRef(null);
 
@@ -70,15 +72,22 @@ export default function ObjectDetectionImage() {
 
   const handleSelectImage = (e) => {
     const [file] = e.target.files;
+    let selectedImageWidth = 0;
     if (file) {
       const reader = new FileReader();
       const { current } = selectedImageRef;
       current.file = file;
       reader.onload = (e) => {
         current.src = e.target.result;
+        if (isWidthUp('sm', props.width)) {
+          selectedImageWidth = current.innerWidth;
+        } else {
+          selectedImageWidth = window.innerWidth - 40;
+        }
+        setImageWidth(selectedImageWidth);
       };
       reader.readAsDataURL(file);
-      setSelectedFile(file);
+      setSelectedFile(file);      
     }
   };
 
@@ -136,18 +145,31 @@ export default function ObjectDetectionImage() {
   return (
     <Grid container spacing={0}>
       <Grid item xs={12} className="contentpanel-site">
-        <h3>{locData.objectdetectionimage}</h3>
-        <h5>{locData.objectdetectiondescriptionimage}</h5>
-        <p>
-          {locData.objectdetectioninstructionsimage}{' '}
-          <Button className="ml-2" href={modelUrl} color="primary" variant="outlined" target="_blank" rel="noopener">
-            View Model
-          </Button>
-        </p>
         <Grid container spacing={0}>
           <Grid item xs={12} md={6} lg={6} xl={6}>
+            <h2>{locData.objectdetectionimage}</h2>
+            {selectedFile ? (
+              <></>
+            ) : (
+              <>
+                <h5>{locData.objectdetectiondescriptionimage}</h5>
+                <h5>{locData.objectdetectioninstructionsimage}</h5>    
+              </>
+            )}
+            <div>
+              <Button
+                className="ml-2"
+                href={modelUrl}
+                color="primary"
+                variant="outlined"
+                target="_blank"
+                rel="noopener"
+              >
+                View Model
+              </Button>
+            </div>
             <Card className="card white-bg-color bl-1 bb-1">
-              <CardContent>
+              <CardContent className="p-1">
                 <input
                   style={{ display: 'none' }}
                   accept="image/jpeg"
@@ -170,7 +192,6 @@ export default function ObjectDetectionImage() {
                   filePath="images/apple-carrot.jpg"
                 />
                 <DownloadFileButton display={true} text="Download Hot Dog Image" filePath="images/hotdog.jpg" />
-                <DownloadFileButton display={true} text="Download strawberry Image" filePath="images/strawberry.jpg" />
               </CardContent>
               <CardActions>
                 {selectedFile ? (
@@ -194,6 +215,7 @@ export default function ObjectDetectionImage() {
                 src={selectedFile}
                 style={{
                   visibility: selectedFile != null ? 'visible' : 'hidden',
+                  width: imageWidth,
                 }}
                 alt="Selected file to analyze"
               />
@@ -205,3 +227,6 @@ export default function ObjectDetectionImage() {
     </Grid>
   );
 }
+
+
+export default withWidth()(ObjectDetectionImage);

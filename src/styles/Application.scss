@@ -52,24 +52,23 @@ body {
 }
 
 h1 {
-  font-size: 2em;
+  font-size: 1.8em;
   font-weight: 400;
 }
 h2 {
-  font-size: 1.8em;
-  font-weight: 500;
-}
-h3 {
-  font-size: 1.6em;
-  font-weight: 500;
-  margin: 0 0 10px 0;
-}
-h4 {
   font-size: 1.4em;
   font-weight: 500;
 }
-h5 {
+h3 {
+  font-size: 1.3em;
+  font-weight: 500;
+}
+h4 {
   font-size: 1.2em;
+  font-weight: 500;
+}
+h5 {
+  font-size: 1.1em;
   font-weight: 500;
 }
 
@@ -84,7 +83,7 @@ h3,
 h4,
 h5 {
   padding: 0;
-  margin: 5px 0 5px 0;
+  margin: 0 0 10px 0;
   color: $black;
 }
 
@@ -104,8 +103,6 @@ body .main-content {
   margin-left: 40px;
   width: 95%;
 }
-
-
 
 /* CUSTOM APP COLORING/PALLETTE */
 .active {
@@ -386,11 +383,6 @@ input {
   background-color: $white;
 }
 
-.input-append input,
-.input-append select {
-  border-radius: 0;
-}
-
 /** Start Material UI over-ride classes */
 div[class*='MuiCard-root'] {
   border-radius: 0px !important;
@@ -408,102 +400,17 @@ button[class*='MuiButton-root-'] {
   color: $grey-lightest !important;
 }
 
+@media (hover: none) {
+  .MuiButton-textPrimary:hover{
+    background-color: $primary-darkest !important;
+  }
+}
+
 /** END  Material UI over-ride classes */
-
-/* "Toast" Notifications */
-.notification-container {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  align-items: flex-start;
-  align-content: flex-start;
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 999999;
-}
-
-.notification-item {
-  width: 250px;
-  margin: 10px;
-  color: $white;
-}
-
-.notification-item:hover {
-  box-shadow: 0 0 10px 0 $black;
-}
-
-.notification-item > p {
-  margin: 10px;
-}
-
-.notification-item.success {
-  background-color: $success;
-}
-
-.notification-item.error {
-  background-color: $error;
-}
-
-.notification-item.info {
-	color: $grey-lightest;
-	background-color: $grey-med;
-}
-
-.notification-title {
-  font-weight: 700;
-}
-
-@media all and (max-width: 240px) {
-  .notification-container > div {
-    padding: 10px;
-    width: 11em;
-  }
-
-  .notification-container .notification-close-button {
-    right: -0.2em;
-    top: -0.2em;
-  }
-}
-@media all and (min-width: 241px) and (max-width: 480px) {
-  .notification-container > div {
-    padding: 10px;
-    width: 18em;
-  }
-
-  .notification-container .notification-close-button {
-    right: -0.2em;
-    top: -0.2em;
-  }
-}
-
-@media all and (min-width: 481px) and (max-width: 768px) {
-  .notification-container > div {
-    padding: 10px 10px 10px 20px;
-    width: 25em;
-  }
-}
 
 /* Global Resets for tablet and down */
 
 @media all and (max-width: 768px) {
-  h1 {
-    font-size: 1.6em;
-  }
-  h2 {
-    font-size: 1.6em;
-  }
-  h3 {
-    font-size: 1.2em;
-  }
-  h4 {
-    font-size: 1.2em;
-  }
-  h5 {
-    font-size: 1em;
-  }
-
   .MuiButton-textPrimary {
     padding: 0 10px !important;
   }

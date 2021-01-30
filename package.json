@@ -1,12 +1,13 @@
 {
 	"name": "machinelearning-tensorflow",
-	"version": "0.3.0",
+	"version": "0.5.0",
 	"private": true,
 	"description": "Set of machine learning examples implemented in tensorflow and hosted in a React JS Application",
 	"homepage": "https://spinningideas.github.io/machinelearning-tensorflow/",
 	"dependencies": {
 		"@material-ui/core": "^4.11.2",
 		"@material-ui/icons": "^4.11.2",
+		"@material-ui/lab": "^4.0.0-alpha.57",
 		"@tensorflow-models/coco-ssd": "^2.2.1",
 		"@tensorflow/tfjs": "^2.8.4",
 		"@tensorflow/tfjs-backend-cpu": "^3.0.0",

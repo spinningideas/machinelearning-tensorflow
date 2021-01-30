@@ -121,6 +121,7 @@ const theme = createMuiTheme({
         boxShadow: 'none',
         '&:hover': {
           backgroundColor: primaryDarker,
+          background: primaryDark,
           color: light,
         },
       },
@@ -147,7 +148,7 @@ const theme = createMuiTheme({
       },
     },
   },
-  gutters: 0,
+  gutters: 0
 });
 
 export default theme;

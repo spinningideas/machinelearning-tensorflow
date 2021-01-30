@@ -33,7 +33,7 @@
   "view": "View",
   "objectdetectionimage": "Image Object Detection",
   "objectdetectiondescriptionimage": "Example of Object Detection analysis using image you upload",
-  "objectdetectioninstructionsimage": "Upload an image and see what objects in it can be classified",
+  "objectdetectioninstructionsimage": "Select an image and see what objects in it can be classified",
   "objectdetectioncamera": "Camera Object Detection",
   "objectdetectiondescriptioncamera": "Example of Object Detection analysis using web cam and realtime data",
   "objectdetectioninstructionscamera": "Enable a web cam and see what objects in it can be classified"

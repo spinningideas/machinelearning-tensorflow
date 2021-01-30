@@ -98,10 +98,9 @@ export default function Sentiment() {
   return (
     <Grid container spacing={0}>
       <Grid item xs={12} className="contentpanel-site">
-        <h3>{locData.sentiment}</h3>
-        <p>{locData.sentimentinstructions}</p>
-        <p>
-          {' '}
+        <h2>{locData.sentiment}</h2>
+        <h5>{locData.sentimentinstructions}</h5>
+        <div>
           <Button
             className="ml-2"
             href={url.model}
@@ -110,7 +109,7 @@ export default function Sentiment() {
             target="_blank"
             rel="noopener"
           >
-						Model Link
+						Model
           </Button>
           <Button
             className="ml-2"
@@ -122,7 +121,7 @@ export default function Sentiment() {
           >
 						Model Metadata
           </Button>
-        </p>
+        </div>
         <Grid container spacing={0}>
           <Grid item xs={12} md={6} lg={6} xl={6}>
             <Card className="card white-bg-color bl-1 bb-1">
@@ -139,7 +138,7 @@ export default function Sentiment() {
               </CardContent>
               <CardActions>
                 {sentimentInputText !== '' ? (
-                  <Button color="secondary" onClick={() => getSentimentScore(sentimentInputText)}>
+                  <Button color="primary" onClick={() => getSentimentScore(sentimentInputText)}>
 										View Sentiment
                   </Button>
                 ) : (
