@@ -31,8 +31,8 @@ function ObjectDetectionCamera(props) {
 
   const aspectRatioFactor = 0.75; // 0.75 = 4by3 and 0.5625 = 16by9
 
-  let videoTop = 280;
-  let videoLeft = 10;
+  let videoTop = 240;
+  let videoLeft = 20;
 
   // localization
   useEffect(() => {
@@ -60,7 +60,9 @@ function ObjectDetectionCamera(props) {
 
   // camera object detection toggle
   useEffect(() => {
-    detectFromVideoFrame(model, videoRef.current, objectDetectionOccuring);
+    if (objectDetectionOccuring === true) {
+      detectFromVideoFrame(model, videoRef.current, objectDetectionOccuring);
+    }
   }, [objectDetectionOccuring]);
 
   const initWebCam = () => {
@@ -80,7 +82,7 @@ function ObjectDetectionCamera(props) {
             videoRef.current.srcObject = stream;
             return new Promise((resolve) => {
               videoRef.current.onloadedmetadata = () => {
-                setMessages('Camera ready...click "Perform Object Detection" to continue');
+                setMessages('Click "Start Object Detection" to continue');
                 setCameraReady(true);
                 resolve();
               };
@@ -107,74 +109,71 @@ function ObjectDetectionCamera(props) {
     }
   };
 
-  const detectFromVideoFrame = (model, video, enableDetection) => {
-    if (enableDetection) {
-      model.detect(video).then(
-        (predictions) => {
-          showDetections(predictions, enableDetection);
+  const detectFromVideoFrame = (model, video) => {
+    model.detect(video).then(
+      (predictions) => {
+        if (video.srcObject) {
+          showDetections(predictions);
           requestAnimationFrame(() => {
-            detectFromVideoFrame(model, video, enableDetection);
+            detectFromVideoFrame(model, video);
           });
-        },
-        (error) => {
-          setMessages('Couldn\t start the webcam');
-          setCameraReady(false);
-          console.error(error);
         }
-      );
-    } else {
-      showDetections([], enableDetection);
-    }
+      },
+      (error) => {
+        setMessages('Couldn\t start the webcam');
+        setCameraReady(false);
+        console.error(error);
+      }
+    );
   };
 
-  const showDetections = (predictions, enableDetection) => {
+  const showDetections = (predictions) => {
     const ctx = canvasRef.current.getContext('2d');
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    if (enableDetection) {
-      const font = '20px monospace';
-      const outlineColor = '#00e5ff';
-      ctx.font = font;
-      ctx.textBaseline = 'top';
+    const font = '20px monospace';
+    const outlineColor = '#00e5ff';
+    ctx.font = font;
+    ctx.textBaseline = 'top';
 
-      predictions.forEach((prediction) => {
-        const x = prediction.bbox[0];
-        const y = prediction.bbox[1];
-        const width = prediction.bbox[2];
-        const height = prediction.bbox[3];
-        // Draw the bounding box.
-        ctx.strokeStyle = outlineColor;
-        ctx.lineWidth = 1;
-        ctx.strokeRect(x, y, width, height);
-        // Draw the label background.
-        ctx.fillStyle = outlineColor;
-        const textWidth = ctx.measureText(prediction.class).width;
-        const textHeight = parseInt(font, 10);
-        // draw top left rectangle
-        ctx.fillRect(x, y, textWidth + 10, textHeight + 10);
-        // draw bottom left rectangle
-        ctx.fillRect(x, y + height - textHeight, textWidth + 15, textHeight + 10);
+    predictions.forEach((prediction) => {
+      const left = prediction.bbox[0];
+      const top = prediction.bbox[1];
+      const width = prediction.bbox[2];
+      const height = prediction.bbox[3];
+      // Draw the bounding box.
+      ctx.strokeStyle = outlineColor;
+      ctx.lineWidth = 1;
+      ctx.strokeRect(left, top, width, height);
+      // Draw the label background.
+      ctx.fillStyle = outlineColor;
+      const textWidth = ctx.measureText(prediction.class).width;
+      const textHeight = parseInt(font, 10);
+      // draw top left rectangle
+      ctx.fillRect(left, top, textWidth + 10, textHeight + 10);
+      // draw bottom left rectangle
+      ctx.fillRect(left, top + height - textHeight, textWidth + 15, textHeight + 10);
 
-        // Draw the text last to ensure it's on top.
-        ctx.fillStyle = '#000000';
-        ctx.fillText(prediction.class, x, y);
-        ctx.fillText(prediction.score.toFixed(2), x, y + height - textHeight);
-      });
-    }
+      // Draw the text last to ensure it's on top.
+      ctx.fillStyle = '#000000';
+      ctx.fillText(prediction.class, left, top);
+      ctx.fillText(prediction.score.toFixed(2), left, top + height - textHeight);
+    });
   };
 
-  const handleImageObjectDetection = () => {
+  const startImageObjectDetection = () => {
     performImageObjectDetection();
   };
 
   const performImageObjectDetection = () => {
+    toggleWebCamStream(true);
     setObjectDetectionOccuring(true);
-    setMessages('Detecting objects in the webcam...');
+    setMessages('Detecting objects...');
   };
 
   const stopImageObjectDetection = () => {
     setObjectDetectionOccuring(false);
     toggleWebCamStream(false);
-    setMessages('Stopped detecting objects in the webcam...');
+    setMessages('Stopped detecting objects...');
   };
 
   const toggleWebCamStream = (activate) => {
@@ -186,9 +185,11 @@ function ObjectDetectionCamera(props) {
       .then((stream) => {
         stream.getTracks().forEach((track) => {
           if (activate) {
-            track.start();
+            if (track.start) track.start();
+            videoRef.current.play();
           } else {
-            track.stop();
+            if (track.stop) track.stop();
+            videoRef.current.pause();
           }
         });
       });
@@ -205,15 +206,15 @@ function ObjectDetectionCamera(props) {
   const CameraActionButton = () => {
     if (modelLoaded && cameraReady && !objectDetectionOccuring) {
       return (
-        <Button color="primary" onClick={() => handleImageObjectDetection()}>
-          Perform Object Detection
+        <Button color="primary" onClick={() => startImageObjectDetection()}>
+          Start Object Detection
         </Button>
       );
     }
     if (modelLoaded && cameraReady && objectDetectionOccuring) {
       return (
-        <Button color="primary" onClick={() => stopImageObjectDetection()}>
-          Stop Object Detection
+        <Button color="primary" className="p-2"onClick={() => stopImageObjectDetection()}>
+          Stop Detection
         </Button>
       );
     }
@@ -223,7 +224,7 @@ function ObjectDetectionCamera(props) {
   const CameraEnvironmentButton = () => {
     if (modelLoaded && cameraReady && objectDetectionOccuring) {
       return (
-        <Button color="primary" onClick={() => toggleWebCamEnvironment()}>
+        <Button color="primary" className="p-2" onClick={() => toggleWebCamEnvironment()}>
           Change Camera
         </Button>
       );
@@ -235,25 +236,36 @@ function ObjectDetectionCamera(props) {
     if (isWidthUp('md', props.width)) {
       return 720;
     } else {
-      return window.innerWidth - 20;
+      return window.innerWidth - 40;
     }
   };
 
   const calcVideoHeight = () => {
     let h = calcVideoWidth();
-    return Math.ceil(h * aspectRatioFactor); // 16by9 aspect ratio
+    return Math.ceil(h * aspectRatioFactor);      
+  };
+  
+  const Instructions = () => {
+    if (!modelLoaded && !cameraReady) {
+      return <div className="pb-2">{locData.objectdetectioninstructionscamera}</div>;
+    }
+    return <></>;
+  };
+  
+  const Messages = ({ messages }) => {
+    return <Alert>{messages}</Alert>;
   };
 
   return (
     <Grid container spacing={0}>
       <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
-        <Card className="card white-bg-color bl-1 bb-1">
-          <CardContent className="p-2">
+        <Card className="card white-bg-color" elevation={0}>
+          <CardContent className="p-1">
             <h2>{locData.objectdetectioncamera}</h2>
-            {!modelLoaded && !cameraReady ? <p>{locData.objectdetectioninstructionscamera}</p> : <></>}
-            <Alert>{messages}</Alert>
+            <Instructions />
+            <Messages messages={messages} />
           </CardContent>
-          <CardActions className="p-2">
+          <CardActions className="p-1">
             <CameraActionButton />
             <CameraEnvironmentButton />
           </CardActions>
@@ -266,7 +278,7 @@ function ObjectDetectionCamera(props) {
             position: 'fixed',
             top: videoTop,
             left: videoLeft,
-            zIndex: 9000,
+            zIndex: 6000,
           }}
           width={calcVideoWidth()}
           height={calcVideoHeight()}
@@ -280,7 +292,7 @@ function ObjectDetectionCamera(props) {
             position: 'fixed',
             top: videoTop,
             left: videoLeft,
-            zIndex: 10001,
+            zIndex: 7000,
           }}
           width={calcVideoWidth()}
           height={calcVideoHeight()}

@@ -99,17 +99,10 @@ export default function Sentiment() {
     <Grid container spacing={0}>
       <Grid item xs={12} className="contentpanel-site">
         <h2>{locData.sentiment}</h2>
-        <h5>{locData.sentimentinstructions}</h5>
+        <div className="pb-2">{locData.sentimentinstructions}</div>
         <div>
-          <Button
-            className="ml-2"
-            href={url.model}
-            color="primary"
-            variant="outlined"
-            target="_blank"
-            rel="noopener"
-          >
-						Model
+          <Button className="ml-2" href={url.model} color="primary" variant="outlined" target="_blank" rel="noopener">
+            Model
           </Button>
           <Button
             className="ml-2"
@@ -119,12 +112,12 @@ export default function Sentiment() {
             target="_blank"
             rel="noopener"
           >
-						Model Metadata
+            Model Metadata
           </Button>
         </div>
         <Grid container spacing={0}>
           <Grid item xs={12} md={6} lg={6} xl={6}>
-            <Card className="card white-bg-color bl-1 bb-1">
+            <Card className="card white-bg-color" elevation={0}>
               <CardContent>
                 <TextField
                   label="Type your text here"
@@ -139,7 +132,7 @@ export default function Sentiment() {
               <CardActions>
                 {sentimentInputText !== '' ? (
                   <Button color="primary" onClick={() => getSentimentScore(sentimentInputText)}>
-										View Sentiment
+                    View Sentiment
                   </Button>
                 ) : (
                   <></>
@@ -160,7 +153,7 @@ export default function Sentiment() {
                     <MoodIcon className="success-color" style={{ fontSize: 40 }} />
                   ) : (
                     <MoodBadIcon className="fail-color" style={{ fontSize: 40 }} />
-                  )}						
+                  )}
                 </CardContent>
               </Card>
             ) : (

@@ -152,8 +152,8 @@ function ObjectDetectionImage(props) {
               <></>
             ) : (
               <>
-                <h5>{locData.objectdetectiondescriptionimage}</h5>
-                <h5>{locData.objectdetectioninstructionsimage}</h5>    
+                <div className="pb-2">{locData.objectdetectiondescriptionimage}</div>
+                <div className="pb-2">{locData.objectdetectioninstructionsimage}</div>
               </>
             )}
             <div>
@@ -168,7 +168,7 @@ function ObjectDetectionImage(props) {
                 View Model
               </Button>
             </div>
-            <Card className="card white-bg-color bl-1 bb-1">
+            <Card className="card white-bg-color" elevation={0}>
               <CardContent className="p-1">
                 <input
                   style={{ display: 'none' }}
