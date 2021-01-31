@@ -21,7 +21,7 @@ const AppTitle = (props) => {
   }
   return (
     <Typography variant="h6" className={classes.appTitle}>
-      ML - Tensoflow
+      ML - Tensorflow
     </Typography>
   );
 };
