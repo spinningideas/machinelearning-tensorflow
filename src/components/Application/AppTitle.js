@@ -19,6 +19,7 @@ const AppTitle = (props) => {
       </Typography>
     );
   }
+
   return (
     <Typography variant="h6" className={classes.appTitle}>
       ML - Tensorflow
