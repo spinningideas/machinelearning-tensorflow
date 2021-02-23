@@ -10,10 +10,6 @@ const LocalizationService = () => {
   };
 
   const getUserLocale = () => {
-    let locale = window.localStorage.getItem('locale');
-    if (locale) {
-      return locale;
-    }
     return defaultLocale;
   };
 
@@ -22,11 +18,7 @@ const LocalizationService = () => {
   };
 
   const getCurrentLocale = () => {
-    let found = [];
-    if (found.length === 0) {
-      return getUserLocale();
-    }
-    return found[0];
+    return defaultLocale;
   };
 
   const getLocalizedTextSet = async (keys, locale) => {

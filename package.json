@@ -1,6 +1,6 @@
 {
 	"name": "machinelearning-tensorflow",
-	"version": "0.5.0",
+	"version": "0.6.0",
 	"private": true,
 	"description": "Set of machine learning examples implemented in tensorflow and hosted in a React JS Application",
 	"homepage": "https://spinningideas.github.io/machinelearning-tensorflow/",
